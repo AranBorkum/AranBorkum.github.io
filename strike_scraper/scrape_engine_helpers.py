@@ -55,6 +55,9 @@ class ScrapeEngineHelper:
                 # words should be the date and the month
                 if day_list[counter].lower() in DAYS:
                     date, month = day_list[counter + 1], day_list[counter + 2]
+                    if month == "and":
+                        month = day_list[-1]
+
                     output_element = datetime.datetime(
                         month_year_map[month.lower()], MONTHS[month.lower()], int(date)
                     )

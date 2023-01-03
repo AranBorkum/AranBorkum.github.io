@@ -32,9 +32,11 @@ class ScrapeEngine(ScrapeEngineHelper):
         for accordion in soup.select("accordion"):
             element = accordion.find_next().find_next().attrs.get("v-for")
             dicts = self.clean_and_get_dicts(element)
-            month_year_map = self.get_info_from_title(dicts[0])
-            days = self.get_days_from_li(dicts[0], month_year_map)
-            self.upload_strike_dates_to_database(days)
+            for single_dict in dicts:
+
+                month_year_map = self.get_info_from_title(single_dict)
+                days = self.get_days_from_li(single_dict, month_year_map)
+                self.upload_strike_dates_to_database(days)
 
     @staticmethod
     def upload_strike_dates_to_database(days):
